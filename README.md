@@ -5,8 +5,10 @@
 
 ---
 
+
 ## 📌 Project Overview
 RaceDay is a comprehensive athletic event management web application built using **ASP.NET Core MVC**, **ASP.NET Core REST API**, **Entity Framework Core**, **Azure Blob Storage**, and **Docker**. It provides role-aware interfaces for both Organisers and Participants.
+
 
 ---
 
@@ -19,6 +21,7 @@ The platform follows a decoupled architecture where the MVC web application comm
 3. Configure your local connection string targeting `localhost\SQLEXPRESS01` inside `appsettings.json`.
 4. Apply Entity Framework migrations via Package Manager Console: `Update-Database`.
 5. Run both the API and MVC projects.
+
 
 ---
 
