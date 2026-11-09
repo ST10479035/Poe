@@ -1,0 +1,48 @@
+﻿@model RaceDayAPI3.Models.UserProfileViewModel
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-header bg-dark text-warning fw-bold py-3 text-center">
+                <h4 class="mb-0 fw-bold">My Profile</h4>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="mb-4">
+                    @if (!string.IsNullOrEmpty(Model?.ProfilePictureUrl))
+                    {
+                        <img src="@Model.ProfilePictureUrl" class="rounded-circle shadow-sm mb-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Profile Picture" />
+                    }
+                    else
+                    {
+                        <div class="rounded-circle bg-warning text-dark d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 130px; height: 130px;">
+                            <span class="fs-1 fw-bold">@(Model?.Name?.FirstOrDefault() ?? 'U')</span>
+                        </div>
+                    }
+                </div>
+
+                <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                    <div class="mb-3 text-start">
+                        <label asp-for="Name" class="form-label fw-bold">Full Name</label>
+                        <input asp-for="Name" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label asp-for="Email" class="form-label fw-bold">Email Address</label>
+                        <input asp-for="Email" class="form-control" readonly />
+                    </div>
+
+                    <div class="mb-4 text-start">
+                        <label class="form-label fw-bold">Update Profile Picture</label>
+                        <input type="file" name="profilePic" class="form-control" accept="image/*" />
+                        <small class="text-muted">Uploaded picture will be stored securely in Azure Blob Storage.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-warning fw-bold w-100 py-2 shadow-sm">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

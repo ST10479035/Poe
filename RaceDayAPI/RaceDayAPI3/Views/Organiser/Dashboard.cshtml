@@ -1,0 +1,60 @@
+﻿@model IEnumerable<RaceDayAPI3.Models.EventViewModel>
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold text-dark mb-0">Organiser Dashboard</h2>
+        <p class="text-muted mb-0">Manage your created events and track enrolments.</p>
+    </div>
+    <a asp-controller="Organiser" asp-action="CreateEvent" class="btn btn-warning fw-bold shadow-sm">+ Create New Event</a>
+</div>
+
+<div class="row g-4">
+    @if (Model == null || !Model.Any())
+    {
+        <div class="col-12">
+            <div class="alert alert-info text-center py-4 shadow-sm" role="alert">
+                <h5 class="alert-heading fw-bold">No Events Created Yet</h5>
+                <p class="mb-0">Click the button above to launch your first event on RaceDay!</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        @foreach (var ev in Model)
+        {
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+                    @if (!string.IsNullOrEmpty(ev.BannerImageUrl))
+                    {
+                        <img src="@ev.BannerImageUrl" class="card-img-top" style="height: 180px; object-fit: cover;" alt="@ev.Name">
+                    }
+                    else
+                    {
+                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 180px;">
+                            <span class="fw-bold fs-5">No Banner Image</span>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-warning text-dark">@ev.Type</span>
+                            <small class="text-muted">@ev.Date.ToString("MMM dd, yyyy")</small>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark mb-2">@ev.Name</h5>
+                        <p class="card-text text-muted small mb-3">@ev.Location | <strong>@ev.Distance km</strong></p>
+                        <hr class="text-muted opacity-25">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-dark">@ev.TotalEnrolments Participants</span>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-outline-dark">Enrolments</a>
+                                <a href="#" class="btn btn-outline-warning text-dark">Results</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

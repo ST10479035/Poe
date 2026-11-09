@@ -1,0 +1,43 @@
+﻿@model RaceDayAPI3.Models.EventViewModel
+@{
+    ViewData["Title"] = Model?.Name ?? "Event Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+            @if (!string.IsNullOrEmpty(Model?.BannerImageUrl))
+            {
+                <img src="@Model.BannerImageUrl" class="w-100" style="max-height: 320px; object-fit: cover;" alt="@Model.Name" />
+            }
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-warning text-dark fs-6">@Model?.Type</span>
+                    <span class="text-muted fw-bold">@Model?.Date.ToString("dddd, MMMM dd, yyyy")</span>
+                </div>
+
+                <h2 class="fw-bold text-dark mb-3">@Model?.Name</h2>
+                <p class="fs-5 text-secondary mb-4">@Model?.Description</p>
+
+                <div class="row g-3 p-3 bg-light rounded-3 mb-4">
+                    <div class="col-6">
+                        <span class="text-muted d-block small">Location</span>
+                        <strong class="fs-5">@Model?.Location</strong>
+                    </div>
+                    <div class="col-6">
+                        <span class="text-muted d-block small">Distance</span>
+                        <strong class="fs-5">@Model?.Distance km</strong>
+                    </div>
+                </div>
+
+                <form asp-action="Enrol" method="post">
+                    <input type="hidden" name="eventId" value="@Model?.Id" />
+                    <div class="d-flex gap-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary w-50 py-2">Back to Events</a>
+                        <button type="submit" class="btn btn-warning fw-bold w-50 py-2 shadow-sm">Confirm Enrolment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

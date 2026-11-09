@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "RaceDayAPI\\RaceDayAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "RaceDayAPI3\\RaceDayAPI3.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

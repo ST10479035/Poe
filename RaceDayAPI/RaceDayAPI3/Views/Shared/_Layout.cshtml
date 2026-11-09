@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RACEDAY</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
+    <style>
+        :root {
+            --rd-primary: #06b6d4;
+            --rd-primary-hover: #0891b2;
+            --rd-navy: #0f172a;
+            --rd-bg-light: #f8fafc;
+            --rd-card-bg: #ffffff;
+            --rd-text-main: #334155;
+            --rd-border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--rd-bg-light) !important;
+            color: var(--rd-text-main);
+        }
+
+        /* Modern Light Navbar */
+        .navbar-raceday {
+            background-color: var(--rd-navy) !important;
+            border-bottom: 3px solid var(--rd-primary);
+        }
+
+        .navbar-brand-logo {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand-logo span {
+            color: var(--rd-primary);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--rd-primary) !important;
+        }
+
+        /* Custom Action Buttons */
+        .btn-raceday-primary {
+            background-color: var(--rd-primary);
+            color: #ffffff;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 0.45rem 1.25rem;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 6px rgba(6, 182, 212, 0.25);
+        }
+
+        .btn-raceday-primary:hover {
+            background-color: var(--rd-primary-hover);
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+        }
+
+        .btn-raceday-outline {
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-raceday-outline:hover {
+            border-color: var(--rd-primary);
+            background-color: var(--rd-primary);
+            color: #ffffff;
+        }
+
+        /* Global UI Tweaks for View Content */
+        .card {
+            border: 1px solid var(--rd-border);
+            border-radius: 14px;
+            background-color: var(--rd-card-bg);
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem 0.85rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--rd-primary);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+        }
+
+        /* Footer */
+        .footer-raceday {
+            background-color: #ffffff;
+            border-top: 1px solid var(--rd-border);
+            color: #64748b;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-raceday shadow-sm py-3">
+            <div class="container">
+                <a class="navbar-brand navbar-brand-logo fs-3 text-white me-4" asp-controller="Account" asp-action="Login">
+                    RACE<span>DAY</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (Context.Session.GetString("UserRole") == "Organiser")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white px-3" asp-controller="Organiser" asp-action="Dashboard">
+                                    <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white px-3" asp-controller="Organiser" asp-action="CreateEvent">
+                                    <i class="bi bi-plus-circle me-1"></i> Create Event
+                                </a>
+                            </li>
+                        }
+                        else if (Context.Session.GetString("UserRole") == "Participant")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white px-3" asp-controller="Participant" asp-action="Index">
+                                    <i class="bi bi-compass me-1"></i> Explore Events
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white px-3" asp-controller="Participant" asp-action="MyEvents">
+                                    <i class="bi bi-calendar-event me-1"></i> My Events
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white px-3" asp-controller="Participant" asp-action="MyResults">
+                                    <i class="bi bi-trophy me-1"></i> My Results
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white px-3" asp-controller="Participant" asp-action="Profile">
+                                    <i class="bi bi-person me-1"></i> Profile
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        @if (!string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
+                        {
+                            <li class="nav-item me-3">
+                                <span class="nav-link text-info small fw-semibold mb-0">
+                                    <i class="bi bi-person-circle me-1"></i>
+                                    @Context.Session.GetString("UserEmail")
+                                    <span class="badge bg-secondary ms-1">@Context.Session.GetString("UserRole")</span>
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-raceday-outline btn-sm">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-raceday-primary btn-sm px-4" asp-controller="Account" asp-action="Login">Sign In</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container my-auto py-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer-raceday mt-auto py-3 text-center">
+        <div class="container">
+            <small class="fw-medium">&copy; 2026 RACE<span>DAY</span> Platform | Athletic Event Management</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

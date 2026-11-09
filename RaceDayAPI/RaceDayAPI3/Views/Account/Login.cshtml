@@ -1,0 +1,44 @@
+﻿@model RaceDayAPI3.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Sign In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-primary">RACEDAY</h2>
+                    <p class="text-muted">Sign in to your account</p>
+                </div>
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger py-2">
+                        @Html.ValidationSummary(true, "", new { @class = "mb-0" })
+                    </div>
+                }
+
+                <form asp-action="Login" method="post">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com" required />
+                        <label for="floatingInput">Email Address</label>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required />
+                        <label for="floatingPassword">Password</label>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 fw-semibold rounded-3 py-2">
+                        Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

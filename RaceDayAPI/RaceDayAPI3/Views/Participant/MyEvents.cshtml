@@ -1,0 +1,75 @@
+﻿@model IEnumerable<RaceDayAPI3.Models.EnrolmentViewModel>
+@{
+    ViewData["Title"] = "My Enrolled Events";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1"><i class="bi bi-calendar-event me-2 text-info"></i>My Enrolled Events</h2>
+            <p class="text-muted mb-0">Track your active race entries and confirmation statuses.</p>
+        </div>
+        <a asp-controller="Participant" asp-action="Index" class="btn btn-raceday-primary">
+            <i class="bi bi-compass me-1"></i> Explore More Events
+        </a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="card text-center py-5 border-0 shadow-sm">
+            <div class="card-body">
+                <i class="bi bi-calendar-x display-4 text-muted mb-3"></i>
+                <h5 class="fw-bold text-secondary">No Enrolments Found</h5>
+                <p class="text-muted">You haven't registered for any race events yet.</p>
+                <a asp-controller="Participant" asp-action="Index" class="btn btn-raceday-primary mt-2">Browse Events Now</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        @if (!string.IsNullOrEmpty(item.EventBannerUrl))
+                        {
+                            <img src="@item.EventBannerUrl" class="card-img-top" alt="Event Banner" style="height: 180px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 180px;">
+                                <i class="bi bi-image text-muted display-6"></i>
+                            </div>
+                        }
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="fw-bold text-dark mb-2">@(item.EventTitle ?? item.EventName ?? "Race Event")</h5>
+                            <p class="text-muted small mb-2"><i class="bi bi-geo-alt me-1 text-danger"></i>@(item.Location ?? "Location TBD")</p>
+                            <p class="text-muted small mb-3"><i class="bi bi-clock me-1 text-primary"></i>@item.EventDate.ToString("dd MMM yyyy, HH:mm")</p>
+
+                            <div class="mb-3">
+                                <span class="badge bg-light text-dark border me-1">Category: @(item.CategoryName ?? "General")</span>
+                            </div>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                                <span class="small fw-bold text-muted">Status:</span>
+                                @if (item.Status?.Equals("Confirmed", StringComparison.OrdinalIgnoreCase) == true)
+                                {
+                                    <span class="badge bg-success px-3 py-2 fw-semibold">
+                                        <i class="bi bi-check-circle me-1"></i> Confirmed
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark px-3 py-2 fw-semibold">
+                                        <i class="bi bi-clock-history me-1"></i> Pending
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
