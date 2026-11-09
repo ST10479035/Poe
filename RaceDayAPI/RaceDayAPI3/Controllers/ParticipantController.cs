@@ -17,7 +17,7 @@ namespace RaceDay.MVC.Controllers
             var events = await _apiService.GetAsync<List<EventViewModel>>("api/events/upcoming") ?? new();
             return View(events);
         }
-
+ 
         public async Task<IActionResult> Details(int id)
         {
             if (!IsParticipant()) return RedirectToAction("Login", "Account");
