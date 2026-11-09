@@ -9,7 +9,6 @@ RUN dotnet restore "RaceDay.MVC.csproj"
 # Copy the remaining source code and publish the app
 COPY . .
 RUN dotnet publish "RaceDay.MVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
 # Stage 2: Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
