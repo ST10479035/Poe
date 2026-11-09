@@ -22,7 +22,6 @@ namespace RaceDayAPI.Tests
 
             var context = new RaceDayDbContext(options);
             context.Database.EnsureCreated();
-
             // Seed Roles if empty
             if (!context.Roles.Any())
             {
