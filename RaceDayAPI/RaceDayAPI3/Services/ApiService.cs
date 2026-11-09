@@ -23,7 +23,6 @@ namespace RaceDay.MVC.Services
             }
             catch { return default; }
         }
-
         public async Task<bool> PostAsync<T>(string endpoint, T data)
         {
             try
