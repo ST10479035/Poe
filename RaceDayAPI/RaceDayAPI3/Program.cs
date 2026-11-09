@@ -16,7 +16,6 @@ builder.Services.AddHttpClient("RaceDayApi", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"] ?? "https://localhost:7001/");
 });
-
 builder.Services.AddScoped<RaceDay.MVC.Services.ApiService>();
 
 var app = builder.Build();
