@@ -1,29 +1,24 @@
 name: .NET CI/CD Build
 
-on:
-  push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup .NET 8 SDK
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore Dependencies
-      run: dotnet restore *.sln
+    - name: Restore
+      run: dotnet restore
 
-    - name: Build Solution
-      run: dotnet build *.sln --configuration Release --no-restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
 
-    - name: Run Unit Tests
-      run: dotnet test *.sln --no-restore --verbosity normal
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
