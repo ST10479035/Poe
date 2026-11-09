@@ -24,7 +24,6 @@
         public string CategoryName { get; set; } = string.Empty;
         public string BannerImageUrl { get; set; } = string.Empty;
         public int TotalEnrolments { get; set; }
-
         // Backward-compatible aliases for legacy views
         public string Name { get => Title; set => Title = value; }
         public DateTime Date { get => EventDate; set => EventDate = value; }
