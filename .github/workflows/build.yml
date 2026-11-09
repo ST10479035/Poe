@@ -15,10 +15,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore
-      run: dotnet restore
+      run: dotnet restore RaceDayAPI/RaceDayAPI.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build RaceDayAPI/RaceDayAPI.sln --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test RaceDayAPI/RaceDayAPI.sln --no-restore --verbosity normal
