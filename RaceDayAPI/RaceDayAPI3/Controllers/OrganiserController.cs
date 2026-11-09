@@ -28,7 +28,6 @@ namespace RaceDay.MVC.Controllers
             }
 
             List<CategoryViewModel> categories = new();
-
             try
             {
                 using var client = new HttpClient();
